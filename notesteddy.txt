@@ -1,0 +1,4 @@
+
+https://api.mapbox.com/directions/v5/mapbox/walking/37,-121
+
+https://api.mapbox.com/directions/v5/mapbox/cycling/-121.90063,37.70146;-121.87538,37.69160?steps=true&geometries=polyline&access_token=pk.eyJ1IjoidmNlaXRlbGlzIiwiYSI6ImNqMXlhM283dTAwY3QzM255MXhzM3BsdG8ifQ.XuORK4VnMsMKCO36t5-leA
