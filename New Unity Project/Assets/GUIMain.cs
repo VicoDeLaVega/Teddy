@@ -22,7 +22,7 @@ public class GUIMain : MonoBehaviour {
         if (goTerrain.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
         {
           
-            GameObject go = GameObject.Instantiate(TowerType0, hit.point+new Vector3(0,20,0),Quaternion.identity);
+          //  GameObject go = GameObject.Instantiate(TowerType0, hit.point+new Vector3(0,20,0),Quaternion.identity);
             Debug.Log("Instantiate at"+ hit.point);
 
         }

@@ -28,7 +28,7 @@ public class FollowPath : MonoBehaviour {
     void Start()
     {
         internalTime = Time.fixedTime;
-        Debug.Log("internalTime"+ internalTime);
+     //   Debug.Log("internalTime"+ internalTime);
 
     }
 
@@ -44,7 +44,7 @@ public class FollowPath : MonoBehaviour {
         {
             transform.position = path.GetPoint(currentStart);
             firstFrame = false;
-            Debug.Log("firstFrame" + Time.fixedTime);
+          //  Debug.Log("firstFrame" + Time.fixedTime);
         }
         {
 
