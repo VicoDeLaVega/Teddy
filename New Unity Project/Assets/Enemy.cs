@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour {
     public int lifePoints = 200;
     public ParticleSystem psDestroy;
     public bool destroyed = false;
-
+    public int type = 0;
     // Use this for initialization
     void Start () {
        
@@ -33,10 +33,10 @@ public class Enemy : MonoBehaviour {
         FollowPath fp = GetComponent<FollowPath>();
         if (fp)
             fp.speed = 0;
-       // ParticleSystem ps = (ParticleSystem)GameObject.Instantiate(psDestroy, transform);
         psDestroy.Play();
         
         destroyed = true;
         Destroy(gameObject,1);
+        PlayerController.GetPlayerController().SignalEnemyDestroyed(type);
     }
 }

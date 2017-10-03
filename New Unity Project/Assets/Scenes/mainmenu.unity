@@ -1021,7 +1021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb94d2ddc31bf31408f74883b3bb4338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainGame: testMap
+  MainGame: testmap
 --- !u!4 &1982247518
 Transform:
   m_ObjectHideFlags: 0

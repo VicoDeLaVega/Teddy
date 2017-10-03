@@ -19,6 +19,10 @@ public class TowerFactory : MonoBehaviour {
         towerTypes.Add(GameObject.Find("TowerType2"));
         towerTypes.Add(GameObject.Find("TowerType3"));
         towerTypes.Add(GameObject.Find("TowerType4"));
+        for (int i = 0; i < towerTypes.Count; i++)
+        {
+            towerTypes[i].SetActive(false);
+        }
     }
     // Use this for initialization
     void Start () {
@@ -39,10 +43,8 @@ public class TowerFactory : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
         if (battleGround.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
         {
-            /*GameObject go = */
-          
-           GameObject.Instantiate(towerTypes[type], hit.point + new Vector3(0, 20, 0), Quaternion.identity);
-          
+            GameObject go = GameObject.Instantiate(towerTypes[type], hit.point + new Vector3(0, 20, 0), Quaternion.identity);
+            go.SetActive(true);
             Debug.Log("Instantiate at" + hit.point);
 
         }

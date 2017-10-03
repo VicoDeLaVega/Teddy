@@ -24,6 +24,7 @@ public class FollowPath : MonoBehaviour {
     public float speed = 10;
     public float startTime = 0;
     public float internalTime = 0;
+    public bool reachBase = false;
     // Use this for initialization
     void Start()
     {
@@ -71,8 +72,13 @@ public class FollowPath : MonoBehaviour {
                    // currentStart = 0;
                   //  transform.position = path.GetPoint(currentStart);
                     Destroy(gameObject,1);
-                    PlayerController pc = PlayerController.GetPlayerController();
-                    pc.BaseLifePoints -= 100;
+                    if (!reachBase)
+                    {
+                        reachBase = true;
+                        PlayerController pc = PlayerController.GetPlayerController();
+                        pc.BaseLifePoints -= 1;
+                    }
+                 
                 }
 
             }
