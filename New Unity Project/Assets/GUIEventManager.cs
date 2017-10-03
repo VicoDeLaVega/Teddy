@@ -12,7 +12,8 @@ public class GUIEventManager : MonoBehaviour {
     public Canvas InvisibleCanvas;
     // Use this for initialization
     public FSM.Process fsmProcess;
-    
+
+    public string LastDebugMessage;
 
     // States
     const int StateIdle = 0;
@@ -30,6 +31,17 @@ public class GUIEventManager : MonoBehaviour {
     public bool MouseButtonDown = false;
     public Vector3 moveDiff;
     public float moveDiffMagnitude;
+    public int frame = 0;
+    public bool MouseDownPressed = false;
+    void TDDebug(string str)
+    {
+        if (LastDebugMessage != str)
+        {
+            Debug.Log(str +" :"+frame + " :" + Time.fixedTime);
+            LastDebugMessage = str;
+        }
+    }
+        
     void Start () {
 
         fsmProcess = new FSM.Process();
@@ -60,54 +72,84 @@ public class GUIEventManager : MonoBehaviour {
 
     }
     // Update is called once per frame
+    void UpdateInputs()
+    {
+  //      MouseButtonUp = Input.GetMouseButtonUp(0);
+        MouseButtonDown = Input.GetMouseButtonDown(0);
+    }
     void Update()
     {
-       
-        MouseButtonUp = Input.GetMouseButtonUp(0);
-        MouseButtonDown = Input.GetMouseButtonDown(0);
-        if (fsmProcess.CurrentState == StateClear)
+        frame++;
+       if (fsmProcess.CurrentState == StateClear)
         {
-            Debug.Log("StateClear");
-            CreateTowersMenuCanvas.enabled = false;
+            TDDebug("StateClear");
             MouseButtonUp = false;
-            fsmProcess.MoveNext(TransitionFinished);
+            MouseButtonDown = false;
+            CreateTowersMenuCanvas.enabled = false;
             InvisibleCanvas.enabled = false;
+            TDDebug("TransitionFinished");
+            fsmProcess.MoveNext(TransitionFinished);
             return;
         }
+
         if (fsmProcess.CurrentState == StateDrag)
         {
             InvisibleCanvas.enabled = false;
-            Debug.Log("StateDrag");
-            if (MouseButtonUp)
+            UpdateInputs();
+            TDDebug("StateDrag");
+            if (MouseButtonDown==false)
             {
                 fsmProcess.MoveNext(TransitionUp);
-                Debug.Log("TransitionUp");
+                TDDebug("TransitionUp");
                 return;
             }
         }
+
         if (fsmProcess.CurrentState == StateIdle)
         {
-            //  Debug.Log("StateIdle");
-           moveDiff = mousePosition - Input.mousePosition;
+            UpdateInputs();
+            if(MouseButtonDown)
+            {
+                TDDebug("MouseDownPressed");
+                MouseDownPressed = true;
+            }
+           
+            TDDebug("StateIdle");
+            moveDiff = mousePosition - Input.mousePosition;
+            mousePosition = Input.mousePosition;
+            PlaceSpotTarget();
             moveDiffMagnitude = moveDiff.magnitude;
             InvisibleCanvas.enabled = false;
             if (MouseButtonDown&& moveDiffMagnitude > 0)
             {
+                Debug.Log("moveDiffMagnitude:" + moveDiffMagnitude);
+                TDDebug("TransitionDownMoving");
                 fsmProcess.MoveNext(TransitionDownMoving);
+                MouseDownPressed = false;
                 return;
             }
-            mousePosition = Input.mousePosition;
-            if (MouseButtonUp)
+            if (MouseButtonDown == false && MouseDownPressed == true)
             {
+                TDDebug("MouseButtonDownReleased");
+                MouseDownPressed = false;
+                MouseButtonUp = true;
+                TDDebug("TransitionUp");
+                mousePosition = Input.mousePosition;
                 fsmProcess.MoveNext(TransitionClickUp);
                 return;
             }
+            //if (MouseButtonUp)
+            //{
+            //    TDDebug("TransitionUp");
+            //    fsmProcess.MoveNext(TransitionClickUp);
+            //    return;
+            //}
         }
-       
 
         if (fsmProcess.CurrentState == StateShowingCreateMenu)
         {
-            Debug.Log("StateShowingCreateMenu");
+            TDDebug("StateShowingCreateMenu");
+
             Vector3 Inputpos = new Vector3(mousePosition.x, mousePosition.y, 0);
             for (int i = 0; i < CreateTowersMenu.Count; i++)
             {
@@ -122,11 +164,15 @@ public class GUIEventManager : MonoBehaviour {
     }
     public void ClickOutsideButton()
     {
-        Debug.Log("ClickOutsideButton");
+        TDDebug("ClickOutsideButton");
         if (fsmProcess.CurrentState == StateShowingCreateMenu)
         {
             fsmProcess.MoveNext(TransitionClickOutside);
         }
+    }
+    public void PlaceSpotTarget()
+    {
+        PlayerController.GetPlayerController().PlaceSpotTarget(mousePosition);
     }
     public void SpawnTower()
     {
@@ -137,22 +183,25 @@ public class GUIEventManager : MonoBehaviour {
     public void SpawnTowerType0()
     {
         Debug.Log("SpawnTowerType0");
-        PlayerController.GetPlayerController().SpawnTower(mousePosition);
+        TowerFactory.GetInstance().SpawnTower(mousePosition,0);
         fsmProcess.MoveNext(TransitionCreateTower);
     }
     public void SpawnTowerType1()
     {
         Debug.Log("SpawnTowerType1");
+        TowerFactory.GetInstance().SpawnTower(mousePosition, 1);
         fsmProcess.MoveNext(TransitionCreateTower);
     }
     public void SpawnTowerType2()
     {
         Debug.Log("SpawnTowerType2");
+        TowerFactory.GetInstance().SpawnTower(mousePosition, 2);
         fsmProcess.MoveNext(TransitionCreateTower);
     }
     public void SpawnTowerType3()
     {
         Debug.Log("SpawnTowerType3");
+        TowerFactory.GetInstance().SpawnTower(mousePosition, 3);
         fsmProcess.MoveNext(TransitionCreateTower);
     }
     public void UpgradeTower()

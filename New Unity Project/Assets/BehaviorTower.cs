@@ -85,6 +85,7 @@ public class BehaviorTower : MonoBehaviour {
     public float rangeAttack = 1000;
     public float minDist = 1000000;
     public int damages = 10;
+    public int cost = 100;
     Process p;
     public void SetNearestEnemy()
     {

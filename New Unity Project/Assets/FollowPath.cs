@@ -67,10 +67,12 @@ public class FollowPath : MonoBehaviour {
                 }
                 else
                 {
-                    currentEnd = 1;
-                    currentStart = 0;
-                    transform.position = path.GetPoint(currentStart);
-
+                   // currentEnd = 1;
+                   // currentStart = 0;
+                  //  transform.position = path.GetPoint(currentStart);
+                    Destroy(gameObject,1);
+                    PlayerController pc = PlayerController.GetPlayerController();
+                    pc.BaseLifePoints -= 100;
                 }
 
             }
