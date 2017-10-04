@@ -25,7 +25,7 @@ public class TowerFactory : MonoBehaviour {
         }
     }
     // Use this for initialization
-    void Start () {
+    void Start () { 
 		
 	}
     public void SpawnTower(Vector2 screenPosition,int type)

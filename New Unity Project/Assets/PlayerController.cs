@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     public Text TextConstructionPoints;
     public GameObject battleGround;
     public GameObject SpotTarget;
-
+    public GameObject BaseSpotTarget;
     public static PlayerController instance;
     public static PlayerController GetPlayerController()
     {
@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour {
         instance = this;
         SpotTarget = GameObject.Find("SpotTarget");
         SpotTarget.SetActive(false);
-      
+        BaseSpotTarget = GameObject.Find("BaseSpotTarget");
+        BaseSpotTarget.SetActive(false);
     }
     // Use this for initialization
     void Start () {
