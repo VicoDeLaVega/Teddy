@@ -3,7 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Utils : MonoBehaviour {
-    
+    public static string LastDebugMessage;
+    public static int frame = 0;
+    public static void TDDebug(string str)
+    {
+        if (LastDebugMessage != str)
+        {
+            Debug.Log(str + " :" + frame + " :" + Time.fixedTime);
+            LastDebugMessage = str;
+        }
+    }
+
     public static  Vector3 Snap(Vector3 v,float unit)
     {
         return new Vector3(

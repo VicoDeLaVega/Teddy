@@ -54,7 +54,7 @@ public class FollowPath : MonoBehaviour {
             direction = (end - start).normalized;
             distance = (end - transform.position).magnitude;
           
-            if (distance > 10f)
+            if (distance > 1)
             {
                 transform.position += direction * Time.deltaTime * speed;
                 transform.LookAt(end);

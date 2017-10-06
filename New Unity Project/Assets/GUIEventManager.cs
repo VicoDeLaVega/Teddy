@@ -13,13 +13,14 @@ public class GUIEventManager : MonoBehaviour {
     // Use this for initialization
     public FSM.Process fsmProcess;
 
-    public string LastDebugMessage;
+ 
 
     // States
     const int StateIdle = 0;
     const int StateShowingCreateMenu = 1;
     const int StateClear = 2;
     const int StateDrag = 3;
+    const int StateWaitToStart = 4;
     // Transitions
     const int TransitionClickOutside = 0;
     const int TransitionClickUp = 1;
@@ -27,28 +28,24 @@ public class GUIEventManager : MonoBehaviour {
     const int TransitionFinished = 3;
     const int TransitionDownMoving = 4;
     const int TransitionUp = 5;
+    const int TransitionLevelReady=6;
+
     public bool MouseButtonUp = false;
     public bool MouseButtonDown = false;
     public Vector3 moveDiff;
     public float moveDiffMagnitude;
     public int frame = 0;
     public bool MouseDownPressed = false;
-    void TDDebug(string str)
-    {
-        if (LastDebugMessage != str)
-        {
-            Debug.Log(str +" :"+frame + " :" + Time.fixedTime);
-            LastDebugMessage = str;
-        }
-    }
+  
         
     void Start () {
 
         fsmProcess = new FSM.Process();
 
-        fsmProcess.CurrentState = StateIdle;
+        fsmProcess.CurrentState = StateWaitToStart;
         fsmProcess.transitions = new Dictionary<FSM.Transition, int>
             {
+                { new FSM.Transition(StateWaitToStart, TransitionLevelReady), StateIdle },
                 { new FSM.Transition(StateIdle, TransitionClickUp), StateShowingCreateMenu },
                 { new FSM.Transition(StateIdle, TransitionDownMoving), StateDrag },
                 { new FSM.Transition(StateDrag, TransitionUp), StateClear },
@@ -80,14 +77,22 @@ public class GUIEventManager : MonoBehaviour {
     void Update()
     {
         frame++;
+        if(fsmProcess.CurrentState == StateWaitToStart)
+        {
+            if (PlayerController.GetPlayerController().Level0.HasStarted())
+            {
+                fsmProcess.MoveNext(TransitionLevelReady);
+                return;
+            }
+        }
        if (fsmProcess.CurrentState == StateClear)
         {
-            TDDebug("StateClear");
+            Utils.TDDebug("StateClear");
             MouseButtonUp = false;
             MouseButtonDown = false;
             CreateTowersMenuCanvas.enabled = false;
             InvisibleCanvas.enabled = false;
-            TDDebug("TransitionFinished");
+            Utils.TDDebug("TransitionFinished");
             fsmProcess.MoveNext(TransitionFinished);
             return;
         }
@@ -96,11 +101,11 @@ public class GUIEventManager : MonoBehaviour {
         {
             InvisibleCanvas.enabled = false;
             UpdateInputs();
-            TDDebug("StateDrag");
+            Utils.TDDebug("StateDrag");
             if (MouseButtonDown==false)
             {
                 fsmProcess.MoveNext(TransitionUp);
-                TDDebug("TransitionUp");
+                Utils.TDDebug("TransitionUp");
                 return;
             }
         }
@@ -110,11 +115,11 @@ public class GUIEventManager : MonoBehaviour {
             UpdateInputs();
             if(MouseButtonDown)
             {
-                TDDebug("MouseDownPressed");
+                Utils.TDDebug("MouseDownPressed");
                 MouseDownPressed = true;
             }
-           
-            TDDebug("StateIdle");
+
+            Utils.TDDebug("StateIdle");
             moveDiff = mousePosition - Input.mousePosition;
             mousePosition = Input.mousePosition;
             PlaceSpotTarget();
@@ -123,24 +128,24 @@ public class GUIEventManager : MonoBehaviour {
             if (MouseButtonDown&& moveDiffMagnitude > 0)
             {
                 Debug.Log("moveDiffMagnitude:" + moveDiffMagnitude);
-                TDDebug("TransitionDownMoving");
+                Utils.TDDebug("TransitionDownMoving");
                 fsmProcess.MoveNext(TransitionDownMoving);
                 MouseDownPressed = false;
                 return;
             }
             if (MouseButtonDown == false && MouseDownPressed == true)
             {
-                TDDebug("MouseButtonDownReleased");
+                Utils.TDDebug("MouseButtonDownReleased");
                 MouseDownPressed = false;
                 MouseButtonUp = true;
-                TDDebug("TransitionUp");
+                Utils.TDDebug("TransitionUp");
                 mousePosition = Input.mousePosition;
                 fsmProcess.MoveNext(TransitionClickUp);
                 return;
             }
             //if (MouseButtonUp)
             //{
-            //    TDDebug("TransitionUp");
+            //    Utils.TDDebug("TransitionUp");
             //    fsmProcess.MoveNext(TransitionClickUp);
             //    return;
             //}
@@ -148,7 +153,7 @@ public class GUIEventManager : MonoBehaviour {
 
         if (fsmProcess.CurrentState == StateShowingCreateMenu)
         {
-            TDDebug("StateShowingCreateMenu");
+            Utils.TDDebug("StateShowingCreateMenu");
 
             Vector3 Inputpos = new Vector3(mousePosition.x, mousePosition.y, 0);
             for (int i = 0; i < CreateTowersMenu.Count; i++)
@@ -164,7 +169,7 @@ public class GUIEventManager : MonoBehaviour {
     }
     public void ClickOutsideButton()
     {
-        TDDebug("ClickOutsideButton");
+        Utils.TDDebug("ClickOutsideButton");
         if (fsmProcess.CurrentState == StateShowingCreateMenu)
         {
             fsmProcess.MoveNext(TransitionClickOutside);

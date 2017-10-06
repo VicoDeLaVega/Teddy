@@ -9,7 +9,8 @@ public class OpponentController : MonoBehaviour {
     bool waitValidPath = true;
     public List<GameObject> instances;
     public static OpponentController instance;
-   
+    public GameObject SpotTarget;
+    public LevelController level0;
     // Use this for initialization
     void Start () {
         //RetrieveRoute();
@@ -26,12 +27,21 @@ public class OpponentController : MonoBehaviour {
         SpawnWave(2, 5, 0, 2, Paths[0]);
         SpawnWave(1, 5, 14, 2, Paths[0]);
         SpawnWave(0, 5, 28, 2, Paths[0]);
+        for (int i = 0; i < Paths[0].GetCount(); i++)
+        {
+            GameObject.Instantiate(SpotTarget, Paths[0].GetPoint(i), Quaternion.identity);
+        }
     }
     void Update () {
 		if(waitValidPath)
         {
             if (Paths[0].GetCount() == 0)
                 return;
+
+            if(level0.HasStarted()==false)
+            {
+                return;
+            }
             waitValidPath = false;
             ValidStart();
         }

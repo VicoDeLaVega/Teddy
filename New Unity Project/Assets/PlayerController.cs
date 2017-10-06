@@ -9,9 +9,19 @@ public class PlayerController : MonoBehaviour {
     public int ConstructionPoints = 1000;
     public Text TextLifePoints;
     public Text TextConstructionPoints;
+    public Text TextNeedMoreCoins;
+    public Text TextSelectBaseLocation;
+    public GameObject ButtonConfirmBasePlacement;
+
     public GameObject battleGround;
     public GameObject SpotTarget;
     public GameObject BaseSpotTarget;
+    public GameObject BaseObject;
+
+    public LevelController Level0;
+
+    bool BaseLocationConfirmed = false ;
+
     public static PlayerController instance;
     public static PlayerController GetPlayerController()
     {
@@ -24,24 +34,40 @@ public class PlayerController : MonoBehaviour {
         SpotTarget.SetActive(false);
         BaseSpotTarget = GameObject.Find("BaseSpotTarget");
         BaseSpotTarget.SetActive(false);
+        TextNeedMoreCoins.enabled = false;
+        TextSelectBaseLocation.enabled = false;
+        BaseObject.SetActive(false);
     }
     // Use this for initialization
     void Start () {
- 	}
+  	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 
         TextLifePoints.text = "Life:" + BaseLifePoints;
         TextConstructionPoints.text = "Coins:" + ConstructionPoints;
-
     }
-    public void PopMessage(int i)
+
+    public void PopMessage(int typeMessage)
     {
-        Debug.Log("funds insuffisants");
+        if(typeMessage==0)
+        {
+            PopMessageText pmt = TextNeedMoreCoins.GetComponent<PopMessageText>();
+            if (pmt)
+                pmt.Pop(1);
+        }
+        //if(typeMessage==1)
+        //{
+        //    PopMessageText pmt = TextSelectBaseLocation.GetComponent<PopMessageText>();
+        //    if (pmt)
+        //        pmt.Pop(1);
+
+        //}
     }
 
-    internal void PlaceSpotTarget(Vector3 mousePosition)
+    public void PlaceSpotTarget(Vector3 mousePosition)
     {
         SpotTarget.SetActive(false);
         RaycastHit hit;
@@ -52,9 +78,43 @@ public class PlayerController : MonoBehaviour {
             SpotTarget.SetActive(true);
             //   /*GameObject go = */GameObject.Instantiate(TowerType0, hit.point+new Vector3(0,20,0),Quaternion.identity);
             //   Debug.Log("Instantiate at" + hit.point);
-
-
         }
+    }
+    public bool IsBaseReady()
+    {
+        return BaseLocationConfirmed;
+    }
+    public void StartLevel()
+    {
+        BaseObject.transform.position = BaseSpotTarget.transform.position;
+        BaseObject.SetActive(true);
+        Level0.BasePosition = BaseObject.transform.position;
+        Level0.GenerateRoutes();
+        Level0.StartLevel();
+        ButtonConfirmBasePlacement.SetActive(false);
+        TextSelectBaseLocation.enabled = false;
+    }
+
+    public void ConfirmBaseLocation()
+    {
+        BaseLocationConfirmed = true;
+    }
+
+    public void PlaceBaseLocationTarget()
+    {
+        Utils.TDDebug("pb:PlaceBaseLocationTarget");
+
+        ButtonConfirmBasePlacement.SetActive(true);
+        BaseSpotTarget.SetActive(false);
+        TextSelectBaseLocation.enabled = true;
+
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width/2,Screen.height/2));
+        if (battleGround.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
+        {
+            BaseSpotTarget.transform.position = Utils.Snap(hit.point, 6);
+            BaseSpotTarget.SetActive(true);
+         }
     }
 
     public void SignalEnemyDestroyed(int type)
