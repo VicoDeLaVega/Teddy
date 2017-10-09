@@ -107,6 +107,7 @@
 		/// <param name="e"></param>
 		private void CreateMeshes(UnityTile tile)
 		{
+            Debug.Log("mf:CreateMeshes");
 			tile.OnHeightDataChanged -= DataChangedHandler;
 			tile.OnRasterDataChanged -= DataChangedHandler;
 

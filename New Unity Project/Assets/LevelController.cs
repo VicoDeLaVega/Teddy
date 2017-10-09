@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class LevelController : MonoBehaviour {
     public int difficulty;
     public bool started = false;
     public Vector3 BasePosition { get; internal set; }
-
+    
     // Use this for initialization
     void Start () {
 		
@@ -32,5 +33,9 @@ public class LevelController : MonoBehaviour {
     public void StartLevel()
     {
         started = true;
+    }
+
+    internal void SetEndPathToBase(Vector3 position)
+    {
     }
 }

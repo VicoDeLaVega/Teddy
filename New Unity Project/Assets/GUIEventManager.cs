@@ -36,7 +36,7 @@ public class GUIEventManager : MonoBehaviour {
     public float moveDiffMagnitude;
     public int frame = 0;
     public bool MouseDownPressed = false;
-  
+    public Vector3 SpawnTowerPosition;
         
     void Start () {
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mapbox.Unity.MeshGeneration.Factories;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,11 @@ public class PlayerController : MonoBehaviour {
     public LevelController Level0;
 
     bool BaseLocationConfirmed = false ;
+    public DirectionsFactory directionFactory;
+    public GameObject endPath;
+
+    public Material OriginalBuildingMaterial;
+    public Material OverlapBuildingMaterial;
 
     public static PlayerController instance;
     public static PlayerController GetPlayerController()
@@ -29,6 +35,7 @@ public class PlayerController : MonoBehaviour {
     }
     void Awake()
     {
+        Utils.Log("Pc:Awake");
         instance = this;
         SpotTarget = GameObject.Find("SpotTarget");
         SpotTarget.SetActive(false);
@@ -40,7 +47,8 @@ public class PlayerController : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-  	}
+        Utils.Log("Pc:Start");
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -72,13 +80,32 @@ public class PlayerController : MonoBehaviour {
         SpotTarget.SetActive(false);
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
-        if (battleGround.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(ray);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            MeshRenderer mr = hits[i].collider.gameObject.GetComponent<MeshRenderer>();
+            if (mr)
+            {
+                Debug.Log("hit:" + hits[i].collider.gameObject.name);
+             //   mr.material = OverlapBuildingMaterial;
+                SpotTarget.transform.position = Utils.Snap(hits[i].point, 6);
+                SpotTarget.SetActive(true);
+
+            }
+        }
+     /*   if (battleGround.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
         {
             SpotTarget.transform.position = Utils.Snap(hit.point, 6);
             SpotTarget.SetActive(true);
-            //   /*GameObject go = */GameObject.Instantiate(TowerType0, hit.point+new Vector3(0,20,0),Quaternion.identity);
-            //   Debug.Log("Instantiate at" + hit.point);
-        }
+
+            MeshRenderer mr = hit.collider.gameObject.GetComponent<MeshRenderer>();
+            if (mr)
+            {
+                Debug.Log("hit:" + hit.collider.gameObject.name);
+                mr.material = OverlapBuildingMaterial;
+            }
+        }*/
     }
     public bool IsBaseReady()
     {
@@ -88,6 +115,10 @@ public class PlayerController : MonoBehaviour {
     {
         BaseObject.transform.position = BaseSpotTarget.transform.position;
         BaseObject.SetActive(true);
+
+        endPath.transform.position = BaseObject.transform.position;
+        directionFactory.gameObject.SetActive(true);
+        directionFactory.Query();
         Level0.BasePosition = BaseObject.transform.position;
         Level0.GenerateRoutes();
         Level0.StartLevel();
@@ -114,6 +145,12 @@ public class PlayerController : MonoBehaviour {
         {
             BaseSpotTarget.transform.position = Utils.Snap(hit.point, 6);
             BaseSpotTarget.SetActive(true);
+
+            MeshRenderer mr = hit.collider.gameObject.GetComponent<MeshRenderer>();
+            if (mr)
+            {
+                mr.material = OverlapBuildingMaterial;
+            }
          }
     }
 

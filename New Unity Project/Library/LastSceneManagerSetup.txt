@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/testguinew.unity
+- path: Assets/Scenes/startpage.unity
   isLoaded: 1
   isActive: 1

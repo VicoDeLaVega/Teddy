@@ -120,9 +120,9 @@ namespace Mapbox.Unity.MeshGeneration.Interfaces
 		{
 			if (!IsFeatureValid(feature))
 				return;
-
-			//this will be improved in next version and will probably be replaced by filters
-			var styleSelectorKey = FindSelectorKey(feature);
+      //      Debug.Log("vc:CreateMeshes");
+            //this will be improved in next version and will probably be replaced by filters
+            var styleSelectorKey = FindSelectorKey(feature);
 
 			var meshData = new MeshData();
 			meshData.TileRect = tile.Rect;

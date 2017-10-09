@@ -13,6 +13,8 @@ public class TowerFactory : MonoBehaviour {
     }
     void Awake()
     {
+        Utils.Log("TowerFactory:Awake");
+
         instance = this;
         towerTypes.Add(GameObject.Find("TowerType0"));
         towerTypes.Add(GameObject.Find("TowerType1"));
@@ -25,9 +27,10 @@ public class TowerFactory : MonoBehaviour {
         }
     }
     // Use this for initialization
-    void Start () { 
-		
-	}
+    void Start () {
+        Utils.Log("TowerFactory:Start");
+
+    }
     public void SpawnTower(Vector2 screenPosition,int type)
     {
         BehaviorTower bt = towerTypes[type].GetComponent<BehaviorTower>();
@@ -39,6 +42,13 @@ public class TowerFactory : MonoBehaviour {
             return;                                                                    
         }
         player.ConstructionPoints -= cost;
+
+        Vector3 SpawnPosition = PlayerController.GetPlayerController().SpotTarget.transform.position;
+        GameObject go = GameObject.Instantiate(towerTypes[type], SpawnPosition + new Vector3(0, 4, 0), Quaternion.identity);
+        go.SetActive(true);
+        Debug.Log("Instantiate at" + SpawnPosition);
+
+        /*
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(screenPosition);
         if (battleGround.GetComponent<Collider>().Raycast(ray, out hit, Mathf.Infinity))
@@ -48,6 +58,7 @@ public class TowerFactory : MonoBehaviour {
             Debug.Log("Instantiate at" + hit.point);
 
         }
+        */
     }
 
     // Update is called once per frame

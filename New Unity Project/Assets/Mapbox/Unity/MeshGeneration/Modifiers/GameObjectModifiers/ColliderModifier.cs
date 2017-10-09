@@ -11,6 +11,7 @@ namespace Mapbox.Unity.MeshGeneration.Modifiers
 
         public override void Run(FeatureBehaviour fb)
         {
+         //   Debug.Log("ColliderModifier:Run");
             switch (_colliderType)
             {
                 case ColliderType.BoxCollider:

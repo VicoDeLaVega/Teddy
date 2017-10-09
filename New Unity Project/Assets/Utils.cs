@@ -5,11 +5,15 @@ using UnityEngine;
 public class Utils : MonoBehaviour {
     public static string LastDebugMessage;
     public static int frame = 0;
+    public static void Log(string s)
+    {
+        Debug.Log(Time.fixedTime+":"+s);
+    }
     public static void TDDebug(string str)
     {
         if (LastDebugMessage != str)
         {
-            Debug.Log(str + " :" + frame + " :" + Time.fixedTime);
+         //   Debug.Log(str + " :" + frame + " :" + Time.fixedTime);
             LastDebugMessage = str;
         }
     }

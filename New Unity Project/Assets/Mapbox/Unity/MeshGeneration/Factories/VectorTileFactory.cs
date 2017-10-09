@@ -104,7 +104,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 		/// <param name="e"></param>
 		private void CreateMeshes(UnityTile tile)
 		{
-			tile.OnHeightDataChanged -= DataChangedHandler;
+         //   Debug.Log("VectorTileFactory:CreateMeshes:" + Time.fixedTime);
+
+            tile.OnHeightDataChanged -= DataChangedHandler;
 			tile.OnRasterDataChanged -= DataChangedHandler;
 
 			tile.VectorDataState = TilePropertyState.Loading;
@@ -119,7 +121,9 @@ namespace Mapbox.Unity.MeshGeneration.Factories
 					{
 						if (builder.Active)
 						{
-							builder.Create(_cachedData[tile].Data.GetLayer(layerName), tile);
+                      //      Debug.Log("vtf:CreateMeshes"+ layerName);
+
+                            builder.Create(_cachedData[tile].Data.GetLayer(layerName), tile);
 						}
 					}
 				}

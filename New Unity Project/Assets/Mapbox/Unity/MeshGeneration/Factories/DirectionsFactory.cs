@@ -30,18 +30,23 @@ namespace Mapbox.Unity.MeshGeneration.Factories
         public List<Vector3> points;
 		void Awake()
 		{
-			_directions = MapboxAccess.Instance.Directions;
-			_map.OnInitialized += Query;
+            Debug.Log("DirectionsFactoryAwake:"+Time.fixedTime);
+            //Utils.Log("DirectionsFactoryAwake");
+
+            _directions = MapboxAccess.Instance.Directions;
+		//	_map.OnInitialized += Query;
 		}
 
 		void OnDestroy()
 		{
-			_map.OnInitialized -= Query;
+		//	_map.OnInitialized -= Query;
 		}
 
-		void Query()
+		public void Query()
 		{
-			_map.OnInitialized -= Query;
+            Debug.Log("DirectionsFactoryQuery");
+
+            _map.OnInitialized -= Query;
 			var count = _waypoints.Length;
 			var wp = new Vector2d[count];
 			for (int i = 0; i < count; i++)
