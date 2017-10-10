@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
             MeshRenderer mr = hits[i].collider.gameObject.GetComponent<MeshRenderer>();
             if (mr)
             {
-                Debug.Log("hit:" + hits[i].collider.gameObject.name);
+            //    Debug.Log("hit:" + hits[i].collider.gameObject.name);
              //   mr.material = OverlapBuildingMaterial;
                 SpotTarget.transform.position = Utils.Snap(hits[i].point, 6);
                 SpotTarget.SetActive(true);

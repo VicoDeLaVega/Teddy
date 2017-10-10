@@ -51,10 +51,16 @@ public class OpponentController : MonoBehaviour {
     {
         for (int i = 0; i < num; i++)
         {
-            FollowPath newEnemy = GameObject.Instantiate(UnitsModels[waveType], path.GetPoint(0), Quaternion.identity);
-            newEnemy.startTime = startTime+ freq * i;
-            newEnemy.gameObject.SetActive(true);
-            instances.Add(newEnemy.gameObject);
+            FollowPath FollowPath = GameObject.Instantiate(UnitsModels[waveType], path.GetPoint(0), Quaternion.identity);
+            FollowPath.startTime = startTime+ freq * i;
+            FollowPath.gameObject.SetActive(true);
+            instances.Add(FollowPath.gameObject);
+            LifeIndicator lifeIndicator = FollowPath.gameObject.GetComponentInChildren<LifeIndicator>();
+            if(lifeIndicator)
+            {
+                Enemy enemyObject = FollowPath.gameObject.GetComponent<Enemy>();
+                lifeIndicator.root = enemyObject;
+            }
         }
     }
 }

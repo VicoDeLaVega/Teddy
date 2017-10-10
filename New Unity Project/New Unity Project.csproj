@@ -363,6 +363,7 @@
     <Compile Include="Assets\PostProcessing\Runtime\Utils\MaterialFactory.cs" />
     <Compile Include="Assets\PostProcessing\Runtime\Utils\RenderTextureFactory.cs" />
     <Compile Include="Assets\Route.cs" />
+    <Compile Include="Assets\Scripts\LifeIndicator.cs" />
     <Compile Include="Assets\Scripts\Menus\StartMenuPage2.cs" />
     <Compile Include="Assets\StartMenu.cs" />
     <Compile Include="Assets\TDPath.cs" />
@@ -375,6 +376,8 @@
     <None Include="Assets\Mapbox\Core\Plugins\link.xml" />
     <None Include="Assets\Mapbox\Fonts\OpenSansLic.txt" />
     <None Include="Assets\Mapbox\README.txt" />
+    <None Include="Assets\Materials\LifeInfoShader.shader" />
+    <None Include="Assets\Materials\NewSurfaceShader.shader" />
     <None Include="Assets\Plugins\GitHub\Editor\CREDITS.txt" />
     <None Include="Assets\Plugins\GitHub\Editor\EULA.txt" />
     <None Include="Assets\PostProcessing\Editor Resources\Monitors\HistogramCompute.compute" />

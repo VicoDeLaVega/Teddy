@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
     public int lifePoints = 200;
+    public int originalLifePoints = 0;
     public ParticleSystem psDestroy;
     public bool destroyed = false;
     public int type = 0;
     // Use this for initialization
     void Start () {
-       
+        originalLifePoints = lifePoints;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
     public bool IsDestroyed()

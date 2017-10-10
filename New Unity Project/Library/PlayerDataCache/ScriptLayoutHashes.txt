@@ -93,6 +93,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 3ecea0c2e43f5d97a17c441bfcf59a7d Assembly-CSharp.dll:UnityEngine.PostProcessing.PostProcessingBehaviour
 e81238197aa643d93e3d903c06302a67 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Modifiers.ColliderModifier
 f4386a940b0c945b42ba5098c696420b Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Filters.HeightFilter
+33171a4d791c10108ad4d35cbc0278de Assembly-CSharp.dll:.GameInstanceController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Mapbox.Unity.Map.GlobeTileProvider
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:Mapbox.Unity.Utilities.Runnable
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
@@ -157,11 +158,12 @@ b685e9268787265d5f674016cf07d0b3 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GameController
 e460db8af525eb7c78c76a025f4acae9 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Factories.LowPolyTerrainFactory
 bf2cf9401d7443cb02c1a66d3a4f2575 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Modifiers.ChamferHeightModifier
-0bf2eeab5e9369a496e74b574533dc73 Assembly-CSharp.dll:.Enemy
+45381662d84bcdc73cb5111d1225087f Assembly-CSharp.dll:.Enemy
 3d5386862c34b50dc271b72256933016 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Interfaces.VectorLayerVisualizer
 f47de003a7c9ba003c6011c2b3857ed8 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Modifiers.UvModifier
 37d4bb592fe82a0a5753c58cec2d53c9 Assembly-CSharp.dll:.OpponentController
 41fe99a6b48413fb55e9dcf6c5b1ef4f Assembly-CSharp.dll:.Checker
+1927228aa16a32537eee3a5b116697f4 Assembly-CSharp.dll:.LifeIndicator
 03a1d876922570ac3b9a29ec8f06fc81 Assembly-CSharp.dll:.ChangeShadowDistance
 38bf2dc37578e2b93cce72d1d6e2f915 Assembly-CSharp.dll:Mapbox.Unity.Utilities.OpenUrlOnButtonClick
 e460db8af525eb7c78c76a025f4acae9 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Factories.TerrainFactory
@@ -204,14 +206,14 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 076e35b09a1b5a014e21d57d28756f33 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Factories.StyleOptimizedVectorTileFactory
-c1e3b3bdef1a9227ab475f4eabcc56b5 Assembly-CSharp.dll:.PlayerController
+ae93fceb4f1d26d13623a03c12361650 Assembly-CSharp.dll:.PlayerController
 91333b98e294432cb6bbf7c67b32b260 Assembly-CSharp.dll:.ExtinguishableFire
 ad1b43a81bd79dbc7a8f346c979794d8 Assembly-CSharp.dll:Mapbox.Examples.LocationProvider.RotateWithLocationProvider
 ce0a1fec9d28768e587fb3fb6211456d Assembly-CSharp.dll:Mapbox.Unity.Map.AbstractMap
 f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.PostProcessingProfile
 65ce61bce6a9cc1cdde99a2eb764fefc Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Modifiers.PolygonMeshModifier
 aa4813d9e2a247785fb223838ed21c87 Assembly-CSharp.dll:Mapbox.Examples.Playground.DirectionsExample
-5053a4025720c83b980434dfa516f8f8 Assembly-CSharp.dll:.GUIEventManager
+bff4af3f8dd9691803e8f0af29af84f0 Assembly-CSharp.dll:.GUIEventManager
 b15500bf1b76bbde5922a3b83fc39627 Assembly-CSharp.dll:Mapbox.Examples.Playground.ForwardGeocoderExample
 6ff378b4630d84f63e95fc3d2b45eaf7 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Modifiers.TextureModifier
 03fadd777262cdaa131ac84a2e4aaa22 Assembly-CSharp.dll:Mapbox.Unity.Location.EditorLocationProvider
@@ -225,7 +227,7 @@ d2c3a05474ea70332429208b2401eeff Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration
 87239497d4822de1d15033a4e66e1a48 Assembly-CSharp.dll:.MainMenuController
 ab32795e4d805b58f47e2b98596aa658 Assembly-CSharp.dll:Mapbox.Unity.Map.RangeTileProvider
 33a85b2ae614bca5faddeff171651e7f Assembly-CSharp.dll:Mapbox.Unity.Location.DeviceLocationProvider
-b1ed2541f88c5e81e681466bf79c4644 Assembly-CSharp.dll:.TDPath
+d23d3e9abfcbae4d4d3b1e359e5c0341 Assembly-CSharp.dll:.TDPath
 c93728c2de7be1bdc64a28d1233525e7 Assembly-CSharp.dll:Mapbox.Unity.MeshGeneration.Modifiers.SnapTerrainRaycastModifier
 f4322fc0f64b38fe7809a75cfdc78866 Assembly-CSharp.dll:Mapbox.Examples.Voxels.VoxelTile
 65ce61bce6a9cc1cdde99a2eb764fefc Assembly-CSharp.dll:Mapbox.Examples.ObjectInspectorModifier
